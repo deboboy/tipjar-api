@@ -6,6 +6,7 @@ Built with Next.js
 Hosted on Vercel (for now; might move it to a new cloud host for learning, like Cloudflare)
 
 ## TODOS
+- Refactor Supabase auth to use anon key; move away from service role
 - Fix category to worker relationship so that workers are created with a category; and not trying to lookup a category
 - CORS: If you're planning to access these API endpoints from a frontend application, you might need to set up CORS (Cross-Origin Resource Sharing) headers.
 - Documentation: Now that your API is deployed, it might be a good time to document your endpoints for any team members or future users.
