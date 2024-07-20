@@ -34,6 +34,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log('Method:', req.method)
   console.log('URL:', req.url)
 
+  // Test route for authentication
+  if (req.method === 'GET' && req.url === '/api/test-auth') {
+    console.log('Test auth route hit')
+
+    // Authenticate the request
+    const user = await authenticate(req, res)
+    if (!user) return // If authentication failed, the response has already been sent
+
+    // If we get here, authentication was successful
+    return res.status(200).json({ message: 'Authentication successful', user: user })
+  }
+
   // Handle POST requests to /api/create-category
   if (req.method === 'POST' && req.url === '/api/create-category') {
     console.log('Create category route hit')
