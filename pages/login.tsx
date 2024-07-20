@@ -10,6 +10,7 @@ const supabase = createClient(
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -22,29 +23,39 @@ export default function Login() {
     if (error) {
       console.error('Error logging in:', error.message);
     } else {
+        // Set the token in the component state
+        setToken(data.session?.access_token || '');
       // Redirect to home page or dashboard after successful login
       router.push('/');
     }
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div>
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+      {token && (
+        <div>
+          <h3>Access Token:</h3>
+          <textarea readOnly value={token} style={{ width: '100%', height: '100px' }} />
+        </div>
+      )}
+    </div>
   );
 }
 
